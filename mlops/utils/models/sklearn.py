@@ -6,7 +6,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 from pandas import Series
 from scipy.sparse._csr import csr_matrix
 from sklearn.base import BaseEstimator
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import root_mean_squared_error
 
 from mlops.utils.hyperparameters.shared import build_hyperparameters_space
 
@@ -38,7 +38,7 @@ def train_model(
     X_train: csr_matrix,
     y_train: Series,
     X_val: Optional[csr_matrix] = None,
-    eval_metric: Callable = mean_squared_error,
+    eval_metric: Callable = root_mean_squared_error,
     fit_params: Optional[Dict] = None,
     y_val: Optional[Series] = None,
     **kwargs,
@@ -50,8 +50,8 @@ def train_model(
     if X_val is not None and y_val is not None:
         y_pred = model.predict(X_val)
 
-        rmse = eval_metric(y_val, y_pred, squared=False)
-        mse = eval_metric(y_val, y_pred, squared=True)
+        rmse = eval_metric(y_val, y_pred)
+        mse = eval_metric(y_val, y_pred)
         metrics = dict(mse=mse, rmse=rmse)
 
     return model, metrics, y_pred
@@ -64,7 +64,7 @@ def tune_hyperparameters(
     X_val: csr_matrix,
     y_val: Series,
     callback: Optional[Callable[..., None]] = None,
-    eval_metric: Callable[[Series, Series], float] = mean_squared_error,
+    eval_metric: Callable[[Series, Series], float] = root_mean_squared_error,
     fit_params: Optional[Dict] = None,
     hyperparameters: Optional[Dict] = None,
     max_evaluations: int = 50,

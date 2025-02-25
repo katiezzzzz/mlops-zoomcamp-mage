@@ -1,0 +1,109 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: unit_1_data_preparation/global_data_products/training_set_2.py
+    global_data_product:
+      uuid: training_set_2
+  downstream_blocks:
+  - hyperparameter_tuning
+  - xgboost
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: training_set_2
+  retry_config: null
+  status: executed
+  timeout: null
+  type: global_data_product
+  upstream_blocks: []
+  uuid: training_set_2
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: unit_1_data_preparation/transformers/hyperparameter_tuning.py
+  downstream_blocks:
+  - xgboost
+  - dashboard_data_source
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: Hyperparameter tuning
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - training_set_2
+  uuid: hyperparameter_tuning
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: unit_1_data_preparation/data_exporters/xgboost.py
+    file_source:
+      path: unit_1_data_preparation/data_exporters/xgboost.py
+  downstream_blocks:
+  - dashboard_data_source
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: xgboost
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - training_set_2
+  - hyperparameter_tuning
+  uuid: xgboost
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: unit_1_data_preparation/custom/dashboard_data_source.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: Dashboard data source
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - xgboost
+  - hyperparameter_tuning
+  uuid: dashboard_data_source
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2025-02-25 14:30:08.614816+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: xgboost_training
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: xgboost_training
+variables:
+  early_stopping_rounds: 10
+  max_evaluations: 20
+variables_dir: /home/codespace/.mage_data/unit_1_data_preparation
+widgets: []
