@@ -1,0 +1,8 @@
+blocks:
+  purple_wizard:
+    name: purple wizard
+    type: chart
+    uuid: purple_wizard
+layout:
+- - block_uuid: purple_wizard
+    width: 1

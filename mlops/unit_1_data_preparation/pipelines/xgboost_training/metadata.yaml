@@ -15,7 +15,7 @@ blocks:
   language: python
   name: training_set_2
   retry_config: null
-  status: executed
+  status: failed
   timeout: null
   type: global_data_product
   upstream_blocks: []
@@ -105,5 +105,5 @@ uuid: xgboost_training
 variables:
   early_stopping_rounds: 10
   max_evaluations: 20
-variables_dir: /home/codespace/.mage_data/unit_1_data_preparation
+variables_dir: /home/src/mage_data/unit_1_data_preparation
 widgets: []
